@@ -11,7 +11,7 @@ provider:
   region: us-east-1
   httpApi:
     # Uncomment and set your API Gateway ID if you want to use an existing gateway
-    id: f11tgec785
+    id: sy44cw8ei0
   environment:
     BUCKET_NAME: ${self:custom.bucketName}
   iam:
