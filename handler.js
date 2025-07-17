@@ -17,3 +17,14 @@ exports.process = async (event) => {
         }),
     };
 };
+
+exports.hello = async (event) => {
+    console.log("Hello function invoked");
+    
+    return {
+        statusCode: 200,
+        body: JSON.stringify({
+            message: "Hello from the serverless function!",
+        }),
+    };
+}
