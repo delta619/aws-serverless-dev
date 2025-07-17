@@ -1,0 +1,87 @@
+{
+  "/Users/amalla/Desktop/aws-serverless-dev/serverless.yml": {
+    "versionFramework": "4.17.1",
+    "servicePath": "/Users/amalla/Desktop/aws-serverless-dev/serverless.yml",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "org": "ashutosh619",
+      "app": "aws-serverless",
+      "service": "s3-lambda-trigger",
+      "provider": {
+        "name": "aws",
+        "runtime": "nodejs20.x",
+        "region": "us-east-1",
+        "environment": {
+          "BUCKET_NAME": "${self:custom.bucketName}"
+        },
+        "iam": {
+          "role": {
+            "statements": [
+              {
+                "Effect": "Allow",
+                "Action": [
+                  "s3:GetObject",
+                  "s3:PutObject"
+                ],
+                "Resource": [
+                  "arn:aws:s3:::${self:custom.bucketName}",
+                  "arn:aws:s3:::${self:custom.bucketName}/*"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "functions": {
+        "s3Processor": {
+          "handler": "handler.process",
+          "events": [
+            {
+              "s3": {
+                "bucket": "${self:custom.bucketName}",
+                "event": "s3:ObjectCreated:Put",
+                "forceDeploy": true
+              }
+            }
+          ]
+        }
+      },
+      "custom": {
+        "bucketName": "my-sls-s3-bucket-${sls:stage}"
+      }
+    },
+    "provider": {
+      "name": "aws",
+      "runtime": "nodejs20.x",
+      "region": "us-east-1",
+      "environment": {
+        "BUCKET_NAME": "${self:custom.bucketName}"
+      },
+      "iam": {
+        "role": {
+          "statements": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+              ],
+              "Resource": [
+                "arn:aws:s3:::${self:custom.bucketName}",
+                "arn:aws:s3:::${self:custom.bucketName}/*"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "serviceRawFile": "# \"org\" ensures this Service is used with the correct Serverless Framework Access Key.\norg: ashutosh619\n# \"app\" enables Serverless Framework Dashboard features and sharing them with other Services.\napp: aws-serverless\n\nservice: s3-lambda-trigger\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n  region: us-east-1\n  environment:\n    BUCKET_NAME: ${self:custom.bucketName}\n  iam:\n    role:\n      statements:\n        - Effect: Allow\n          Action:\n            - s3:GetObject\n            - s3:PutObject\n          Resource:\n            - arn:aws:s3:::${self:custom.bucketName}\n            - arn:aws:s3:::${self:custom.bucketName}/*\n\nfunctions:\n  s3Processor:\n    handler: handler.process\n    events:\n      - s3:\n          bucket: ${self:custom.bucketName}\n          event: s3:ObjectCreated:Put\n          forceDeploy: true # creates the bucket if it doesn't exist\n\ncustom:\n  bucketName: my-sls-s3-bucket-${sls:stage}\n",
+    "command": [],
+    "options": {},
+    "serviceProviderAwsCfStackId": null,
+    "serviceProviderAwsCfStackCreated": null,
+    "serviceProviderAwsCfStackUpdated": null,
+    "serviceProviderAwsCfStackStatus": null,
+    "serviceProviderAwsCfStackOutputs": null
+  }
+}
