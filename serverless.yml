@@ -9,6 +9,9 @@ provider:
   name: aws
   runtime: nodejs20.x
   region: us-east-1
+  httpApi:
+    # Uncomment and set your API Gateway ID if you want to use an existing gateway
+    id: f11tgec785
   environment:
     BUCKET_NAME: ${self:custom.bucketName}
   iam:
@@ -26,6 +29,9 @@ functions:
   s3Processor:
     handler: handler.process
     events:
+      - httpApi:
+          path: /process
+          method: post
       - s3:
           bucket: ${self:custom.bucketName}
           event: s3:ObjectCreated:Put
