@@ -1,0 +1,13 @@
+{
+  "name": "aws-serverless-dev",
+  "version": "1.0.0",
+  "description": "Serverless S3 Lambda trigger example",
+  "main": "handler.js",
+  "scripts": {
+    "deploy": "serverless deploy"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+}
