@@ -36,6 +36,7 @@ functions:
           bucket: ${self:custom.bucketName}
           event: s3:ObjectCreated:Put
           forceDeploy: true # creates the bucket if it doesn't exist
+  
 
 custom:
   bucketName: my-sls-s3-bucket-${sls:stage}
