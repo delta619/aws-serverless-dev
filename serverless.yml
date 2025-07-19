@@ -12,7 +12,7 @@ provider:
     id: 0cdqat35hg
 
   environment:
-    MY_VAL: ${self:custom.bucketName}
+    MY_VAL: "test-1"
 
 functions:
   hello:
@@ -22,5 +22,3 @@ functions:
           path: /hello
           method: get
 
-custom:
-  bucketName: my-sls-s3-bucket-${self:provider.stage}
