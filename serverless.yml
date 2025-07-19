@@ -1,41 +1,20 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: ashutosh619
-# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+
 app: aws-serverless
 
-service: s3-lambda-trigger
+service: aws-infra
 
 provider:
   name: aws
   runtime: nodejs20.x
   region: us-east-1
   httpApi:
-    # Uncomment and set your API Gateway ID if you want to use an existing gateway
     id: 0cdqat35hg
+
   environment:
-    BUCKET_NAME: ${self:custom.bucketName}
-  iam:
-    role:
-      statements:
-        - Effect: Allow
-          Action:
-            - s3:GetObject
-            - s3:PutObject
-          Resource:
-            - arn:aws:s3:::${self:custom.bucketName}
-            - arn:aws:s3:::${self:custom.bucketName}/*
+    MY_VAL: ${self:custom.bucketName}
 
 functions:
-  s3Processor:
-    handler: handler.process
-    events:
-      - httpApi:
-          path: /process
-          method: post
-      - s3:
-          bucket: ${self:custom.bucketName}
-          event: s3:ObjectCreated:Put
-          forceDeploy: true # creates the bucket if it doesn't exist
   hello:
     handler: handler.hello
     events:
@@ -44,4 +23,4 @@ functions:
           method: get
 
 custom:
-  bucketName: my-sls-s3-bucket-${sls:stage}
+  bucketName: my-sls-s3-bucket-${self:provider.stage}
