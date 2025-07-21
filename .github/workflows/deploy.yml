@@ -1,4 +1,4 @@
-name: Deploy Serverless S3 Lambda
+name: Deploy Serverless aws-infrastructure
 
 on:
   push:
